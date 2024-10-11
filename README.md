@@ -24,7 +24,7 @@ Installation
 bash
 
 
-`pip install pexels-api-wrapper `
+`pip install pexels-apis `
 
 
 Usage
