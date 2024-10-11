@@ -46,9 +46,8 @@ jobs:
       - name: Run tests
         id: run_tests
         run: |
-          version=$(python setup.py --version)
-          echo "PACKAGE_VERSION=${version}" >> $GITHUB_OUTPUT
-          python -m pip install dist/*.whl --force-reinstall
+          WHEEL_BUILD_VERSION=$(grep -Po '(?<=^version = ).*' setup.cfg)
+          python -m pip install dist/pexels_api-${{ WHEEL_BUILD_VERSION }}-py3-none-any.whl --force-reinstall
           sed -i "s/test_api_key = 'iasjjas'/test_api_key = '${{ secrets.PEXELS_API_KEY }}'/g" tests/test_pexels_api.py
           pytest --maxfail=1 --disable-warnings tests/test_pexels_api.py
         shell: bash
