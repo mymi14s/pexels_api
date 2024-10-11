@@ -8,17 +8,25 @@ def hex_color_validator(value):
     return False
 
 def search_filter(params):
+    locale = params.get('locale') or ""
+    locales = [
+        'en-US', 'pt-BR', 'es-ES', 'ca-ES', 'de-DE', 'it-IT', 'fr-FR', 'sv-SE',
+        'id-ID', 'pl-PL', 'ja-JP', 'zh-TW', 'zh-CN', 'ko-KR', 'th-TH', 'nl-NL',
+        'hu-HU', 'vi-VN', 'cs-CZ', 'da-DK', 'fi-FI', 'uk-UA', 'el-GR', 'ro-RO',
+        'nb-NO', 'sk-SK', 'tr-TR', 'ru-RU'
+    ]
+    if not locale in locales:
+        return {"status": "error", "error": f"locales must be either of {locales}"}
+    
     orientation = params.get('orientation') or ""
     orientations = ["landscape", "portrait", "square", ""]
     if not orientation in orientations:
-        return {"status": "error", "error": f"orientation must be either of \
-                {orientations}"}
+        return {"status": "error", "error": f"orientation must be either of {orientations}"}
 
     size = params.get("size") or ""
     sizes = ["large", "medium", "small", ""]
     if not size in sizes:
-        return {"status": "error", "error": f"size must be either of \
-            {sizes}"}
+        return {"status": "error", "error": f"size must be either of {sizes}"}
 
     color = params.get("color") or ""
     colors = ["red", "orange", "yellow", "green", "turquoise", "blue",
@@ -79,6 +87,7 @@ def search_filter(params):
         return {"status": "error", "error": f"type must be either of {_sorts}"}
 
     return {
+        "locale": locale,
         "orientation":orientation,
         "size":size,
         "color":color,

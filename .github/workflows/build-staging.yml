@@ -28,6 +28,14 @@ jobs:
         shell: bash
         continue-on-error: false
 
+      - name: Run tests
+        id: run_tests
+        run: |
+          sed -i 's/test_api_key = ""/test_api_key = "'${{ secrets.PEXELS_API_KEY }}'"/'tests/test_pexels_api.py
+          pytest --maxfail=1 --disable-warnings tests/test_pexels_api.py
+        shell: bash
+        continue-on-error: false
+
       - name: Build the package
         id: build_package
         run: |

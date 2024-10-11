@@ -80,7 +80,7 @@ class PexelsAPI:
         response = create_request(self.PHOTO_URL+"/search", headers=self.HEADERS, params=filtered_params)
         return response
 
-    def curated_photos(self, params):
+    def get_curated_photos(self, params):
         """
             Curated Photos
             GET https://api.pexels.com/v1/curated
@@ -120,7 +120,7 @@ class PexelsAPI:
         response = create_request(self.PHOTO_URL+"/curated", headers=self.HEADERS, params=filtered_params)
         return response
 
-    def get_photos(self, id):
+    def get_photo(self, id):
         """
             Get a Photo
             GET https://api.pexels.com/v1/photos/:id
@@ -270,7 +270,7 @@ class PexelsAPI:
         """
         if not isinstance(id, int):
             return {"status": "error", "error": "video id must be an int. e.g 2014422"}
-        response = create_request(self.VIDEO_URL+"/video/"+str(id), headers=self.HEADERS)
+        response = create_request(self.VIDEO_URL+"/videos/"+str(id), headers=self.HEADERS)
         return response
 
     """
