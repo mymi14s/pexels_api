@@ -48,7 +48,7 @@ jobs:
         run: |
           version=$(python setup.py --version)
           echo "PACKAGE_VERSION=${version}" >> $GITHUB_OUTPUT
-          python -m pip install dist/pexels_api-${{version}}-py3-none-any.whl --force-reinstall
+          python -m pip install dist/*.whl --force-reinstall
           sed -i "s/test_api_key = 'iasjjas'/test_api_key = '${{ secrets.PEXELS_API_KEY }}'/g" tests/test_pexels_api.py
           pytest --maxfail=1 --disable-warnings tests/test_pexels_api.py
         shell: bash
