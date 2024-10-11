@@ -32,7 +32,7 @@ Usage
 
 python
 
-- `from pexels_api import PexelsAPI`
+- `from pexels_apis import PexelsAPI`
 - `pexels = PexelsAPI("YOUR_API_KEY")`
 - `photos = pexels.search_photos({"query": "nature", "per_page": 10})  # Search for photos photos`
 - `curated_photos = pexels.get_curated_photos({"per_page": 15}) # Get curated photos`
@@ -148,5 +148,5 @@ Please adhere to the [Pexels API Guidelines](https://www.pexels.com/api/document
 
 Links
 ----------
-[PYPI](https://pypi.org/project/pexels-api)
-[Github](https://github.com/mymi14s/pexels_api)
+[PYPI](https://pypi.org/project/pexels-apis)
+[Github](https://github.com/mymi14s/pexels_apis)

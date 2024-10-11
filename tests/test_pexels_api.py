@@ -1,8 +1,8 @@
 import pytest
 from unittest.mock import patch, MagicMock
-from pexels_api import PexelsAPI
+from pexels_apis import PexelsAPI
 
-test_api_key = "d0JKfAcsLDkU1wBd9dEi4SUEc9Q8iw77v5FGeAAIxyqtOhdAgkYuzWob"
+test_api_key = 'iasjjas'
 
 @pytest.fixture
 def pexels_api():
