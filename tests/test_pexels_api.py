@@ -2,7 +2,7 @@ import pytest
 from unittest.mock import patch, MagicMock
 from pexels_apis import PexelsAPI
 
-test_api_key = 'iasjjas'
+test_api_key = ''
 
 @pytest.fixture
 def pexels_api():
