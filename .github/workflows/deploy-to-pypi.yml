@@ -16,33 +16,47 @@ jobs:
 
     steps:
       - name: Checkout repository
+        id: checkout_repository
         uses: actions/checkout@v3
 
       - name: Set up Python
+        id: setup_python
         uses: actions/setup-python@v4
         with:
-          python-version: 3.x
+          python-version: 3.7
 
       - name: Install dependencies
+        id: install_dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install build
+          pip install build pytest requests
         shell: bash
+        continue-on-error: false
 
       - name: Build the package
-        run: python -m build
-        shell: bash
-
-      - name: Extract package version
-        id: get_version
+        id: build_package
         run: |
-          version=$(python setup.py --version)
-          echo "PACKAGE_VERSION=${version}" >> $GITHUB_OUTPUT
+          python -m build
+          if [ $? -ne 0 ]; then
+            echo "Build failed"
+            exit 1
+          fi
         shell: bash
 
       - name: Show built files
+        id: show_built_files
         run: ls dist
         shell: bash
+
+      - name: Run tests
+        id: run_tests
+        run: |
+          WHEEL_BUILD_VERSION=$(grep -Po '(?<=^version = ).*' setup.cfg)
+          python -m pip install dist/pexels_api-${WHEEL_BUILD_VERSION}-py3-none-any.whl --force-reinstall
+          sed -i "s/test_api_key = 'iasjjas'/test_api_key = '${{ secrets.PEXELS_API_KEY }}'/g" tests/test_pexels_api.py
+          pytest --maxfail=1 --disable-warnings -vv tests/test_pexels_api.py
+        shell: bash
+        continue-on-error: false
 
       - name: Upload to PyPI
         uses: pypa/gh-action-pypi-publish@release/v1

@@ -32,16 +32,16 @@ Usage
 
 python
 
-`from pexels_api import PexelsAPI`
-`pexels = PexelsAPI("YOUR_API_KEY")`
-`photos = pexels.search_photos({"query": "nature", "per_page": 10})  # Search for photos photos`
-`curated_photos = pexels.get_curated_photos({"per_page": 15}) # Get curated photos`
-`photo = pexels.get_photo(id=44315}) # Get photos by ID`  
-`videos = pexels.search_videos({"query": "ocean", "per_page": 5}) # Search for videos`
-`popular_videos = pexels.get_popular_videos({"per_page": 20}) # Get popular videos `
-`video = pexels.get_video(id=44315}) # Get vidoe by ID`  
-`collections = pexels.get_featured_collections({"per_page": 10}) # Get featured`
-`my_collections = pexels.get_my_collections({"per_page": 10}) # Get featured`
+- `from pexels_api import PexelsAPI`
+- `pexels = PexelsAPI("YOUR_API_KEY")`
+- `photos = pexels.search_photos({"query": "nature", "per_page": 10})  # Search for photos photos`
+- `curated_photos = pexels.get_curated_photos({"per_page": 15}) # Get curated photos`
+- `photo = pexels.get_photo(id=44315}) # Get photos by ID`  
+- `videos = pexels.search_videos({"query": "ocean", "per_page": 5}) # Search for videos`
+- `popular_videos = pexels.get_popular_videos({"per_page": 20}) # Get popular videos `
+- `video = pexels.get_video(id=44315}) # Get vidoe by ID`  
+- `collections = pexels.get_featured_collections({"per_page": 10}) # Get featured`
+- `my_collections = pexels.get_my_collections({"per_page": 10}) # Get featured`
 
   
 
