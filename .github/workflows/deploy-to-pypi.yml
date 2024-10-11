@@ -1,0 +1,71 @@
+name: Build and Upload PyPI Package on Production Merge
+
+on:
+  push:
+    branches:
+      - production
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        id: checkout_repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        id: setup_python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.x
+
+      - name: Install dependencies
+        id: install_dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install build twine
+          if [ $? -ne 0 ]; then
+            echo "Failed to install dependencies"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Build the package
+        id: build_package
+        run: |
+          python -m build
+          if [ $? -ne 0 ]; then
+            echo "Build failed"
+            exit 1
+          fi
+        shell: bash
+
+      - name: Extract package version
+        id: get_version
+        run: |
+          version=$(python setup.py --version)
+          if [ $? -ne 0 ]; then
+            echo "Failed to get version"
+            exit 1
+          fi
+          echo "::set-output name=PACKAGE_VERSION::${version}"
+        shell: bash
+
+      - name: Show built files
+        id: show_built_files
+        run: ls dist
+        shell: bash
+
+      - name: Upload to PyPI
+        id: upload_pypi
+        env:
+          TWINE_USERNAME: ${{ secrets.PYPI_USERNAME }}
+          TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
+        run: |
+          twine upload dist/*pexels_api-${{ steps.get_version.outputs.PACKAGE_VERSION }}-py3-none-any.whl
+          if [ $? -ne 0 ]; then
+            echo "Failed to upload to PyPI"
+            exit 1
+          fi
+        shell: bash
