@@ -61,7 +61,7 @@ Photos
 	- page integer | optional. The page number you are requesting. Default: 1
 	- per_page integer | optional. The number of results you are requesting per page. Default: 15 Max: 80
 
-Response:  {"status": "success", "data": {'x':'y'}} or {"status": "error", "error": "error message"}
+Response:  {"status_code": 200|401|412|500, "status": "success", "data": {'x':'y'}} or {"status_code": 200|401|412|500,"status": "error", "error": "error message"}
 
 -  `pexels.curated_photos(params)`: Get curated photos. Parameters in dict {} includes
 	- page integer | optional. The page number you are requesting. Default: 1
