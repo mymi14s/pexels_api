@@ -103,7 +103,7 @@ def search_filter(params):
 
 def create_request(URL, headers, params={}):
     try:
-        res = requests.get(URL, headers=headers, params=params)
+        res = requests.get(URL, headers=headers, params=params, timeout=30)
         return response_manager(res)
     except Exception as e:
         return response_manager({"status_code": 500, "status":"error","error":str(e)})
